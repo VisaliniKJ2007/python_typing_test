@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Speed Test Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <h2>Typing Game</h2>
+    <ul>
+      <li><a href="#">🏠 Home</a></li>
+      <li><a href="#" onclick="toggleHelp()">❓ Help</a></li>
+      <li><a href="#" onclick="toggleSettings()">⚙️ Settings</a></li>
+      <li><a href="#">🛒 Shop</a></li>
+    </ul>
+  </nav>
+
+  <!-- Help Modal -->
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="toggleHelp()">&times;</span>
+      <h3>How to Play</h3>
+      <p>1. Enter your name and select a difficulty level.</p>
+      <p>2. Click "Start Test" and begin typing the given sentence.</p>
+      <p>3. Your WPM, Accuracy, and Stars will be calculated!</p>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="toggleSettings()">&times;</span>
+      <h3>Settings</h3>
+      <label>
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()" />
+        🌙 Dark Mode
+      </label>
+      <br>
+      <label>
+        <input type="checkbox" id="soundToggle" onchange="toggleSound()" checked/>
+        🔊 Sound Effects
+      </label>
+      <br>
+      <h4>🖋 Font Style</h4>
+      <select id="fontSelector" onchange="changeFont()">
+        <option value="'Segoe UI', Tahoma, sans-serif">Default</option>
+        <option value="'Courier New', Courier, monospace">Courier</option>
+        <option value="'Comic Sans MS', cursive, sans-serif">Comic</option>
+        <option value="'Roboto', sans-serif">Roboto</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Main Game Section -->
+  <h1>Typing Speed Test</h1>
+
+  <div id="user-setup">
+    <label for="username">👤 Enter your Username:</label>
+    <input type="text" id="username" placeholder="Eg: hello_type07" />
+
+    <label for="difficulty">🎯 Choose Difficulty:</label>
+    <select id="difficulty">
+      <option value="easy">🟢 Easy</option>
+      <option value="medium">🟠 Medium</option>
+      <option value="hard">🔴 Hard</option>
+    </select>
+
+    <button id="start">✨ Start Test</button>
+  </div>
+
+  <div id="test-area" style="display:none;">
+    <p id="sentence"></p>
+    <textarea id="inputText" rows="5" cols="50" placeholder="Start typing here..."></textarea>
+    <button id="submit">✅ Submit</button>
+  </div>
+
+  <div id="results" style="display:none;">
+    <p><strong>⭐ Stars:</strong> <span id="stars">0</span></p>
+    <p><strong>🔥 Points:</strong> <span id="points">0</span></p>
+    <p id="result-details"></p>
+  </div>
+
+  <py-script src="./main.py"></py-script>
+
+  <!-- JavaScript for UI Features -->
+  <script>
+    let soundOn = true;
+
+    function toggleHelp() {
+      document.getElementById("help-modal").classList.toggle("hidden");
+    }
+
+    function toggleSettings() {
+      document.getElementById("settings-modal").classList.toggle("hidden");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    function toggleSound() {
+      soundOn = document.getElementById("soundToggle").checked;
+    }
+
+    function changeFont() {
+      const font = document.getElementById("fontSelector").value;
+      document.body.style.fontFamily = font;
+    }
+
+    function playSound(url) {
+      if (soundOn) {
+        new Audio(url).play();
+      }
+    }
+  </script>
+
+</body>
+</html>
